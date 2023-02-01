@@ -20,7 +20,7 @@ rand_ints = [None] * rand_ints_count
 for i in range (rand_ints_count):
     rand_ints[i] = random.randint(rand_min, rand_max)
 
-print(rand_ints)
+print(f"random integers {rand_ints}")
 
 """Task 2, part two
 
@@ -31,8 +31,7 @@ for rand_int in rand_ints:
     rand_ints_total += rand_int
 
 rand_ints_avg = rand_ints_total / rand_ints_count
-print(rand_ints_avg)
-print(np.mean(rand_ints))
+print(f"mean value for the randomt integers {rand_ints_avg}")
 
 """Task 3, part three
 
@@ -43,5 +42,4 @@ for rand_int in rand_ints:
   rand_ints_sqrd_difs += pow(rand_int - rand_ints_avg, 2)  
 
 rand_ints_var = rand_ints_sqrd_difs / rand_ints_count
-print(rand_ints_var)
-print(np.var(rand_ints))
+print(f"variance of random integers {rand_ints_var}")
