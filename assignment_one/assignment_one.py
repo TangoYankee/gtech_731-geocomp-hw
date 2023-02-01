@@ -7,7 +7,7 @@ import numpy as np
 
 Get the Python version on your computer
 """
-print(platform.python_version())
+print(f"python version for platform {platform.python_version()}")
 
 """Task 2, part one
 
