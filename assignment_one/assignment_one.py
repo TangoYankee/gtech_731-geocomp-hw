@@ -39,7 +39,7 @@ print(f"mean value for the randomt integers {rand_ints_avg}")
 
 assert rand_ints_avg == np.average(rand_ints)
 
-"""Task 3, part three
+"""Task 2, part three
 
 Calculate the variance of the list
 """
