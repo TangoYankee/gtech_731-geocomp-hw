@@ -23,14 +23,78 @@ Top three counties and their states
 """
 
 features = data['features']
-county_states = dict()
-for feature in features:
-  properties = feature['properties']
-  county_name = properties['NAME']
-  state_code = properties['STATE']
-  county_states.setdefault(county_name, []).append(state_code)
+
+def get_county_states(features):
+  county_states = dict()
+  for feature in features:
+    properties = feature['properties']
+    county_name = properties['NAME']
+    state_code = properties['STATE']
+    county_states.setdefault(county_name, []).append(state_code)
+
+  return county_states
 
 
+def test_get_county_states():
+  mock_features = [{
+    'type': 'Feature',
+    "properties": {
+      'GEO_ID': '0500000US01087',
+      'STATE': '01',
+      'COUNTY': '087',
+      'NAME': 'Macon',
+      'LSAD': 'County',
+      'CENSUSAREA': 608.885
+    },
+    "geometry": None,
+  }, {
+    'type': 'Feature',
+    "properties": {
+      'GEO_ID': '0500000US02275',
+      'STATE': '02',
+      'COUNTY': '275',
+      'NAME': 'Wrangell',
+      'LSAD': 'Cty&Bor',
+      'CENSUSAREA': 2541.483
+    },
+    "geometry": None,
+  }, {
+    'type': 'Feature',
+      'properties': {
+      'GEO_ID': '0500000US02270',
+      'STATE': '02',
+      'COUNTY': '270',
+      'NAME': 'Wade Hampton',
+      'LSAD': 'CA',
+      'CENSUSAREA': 17081.433
+    },
+    "geometry": None,
+  }, {
+    'type': 'Feature',
+      'properties': {
+      'GEO_ID': '',
+      'STATE': '03',
+      'COUNTY': '',
+      'NAME': 'Wade Hampton',
+      'LSAD': '',
+      'CENSUSAREA': 0
+    },
+    "geometry": None,
+  }]
+
+  expected = {
+    "Macon": ["01"],
+    "Wrangell": ["02"],
+    "Wade Hampton": ["02", "03"]
+  }
+
+  obs = get_county_states(mock_features)
+  print(f"obs {obs}")
+  assert(obs == expected)
+
+test_get_county_states()
+
+county_states = get_county_states(features)
 def get_county_totals(county_states):
   """Reformat the counties and state list objects into a tuple of counties and their totals
 
@@ -117,32 +181,36 @@ test_top_k_sort_all()
 
 county_totals = get_county_totals(county_states)
 """
-1. Find the top counties.
-2. Compare the two algorithims to determine which has better performance.
+Compare the two algorithims to determine which has better performance.
 
 Findings: sorting the rankings list is generally faster when k is less than 25.
 Sorting the whole list of counties and taking the top is generally faster when k is more than 25.
 """
-# k = 3 
-# start_time = time.perf_counter()
-# top_counties = top_k_sort_k(county_totals, k)
-# stop_time = time.perf_counter()
-# print(f"top counties: {top_counties}")
-# print(f"top counter time: {stop_time - start_time}")
+k = 3 
+start_time = time.perf_counter()
+top_counties = top_k_sort_k(county_totals, k)
+stop_time = time.perf_counter()
+print(f"top counties: {top_counties}")
+print(f"top counter time: {stop_time - start_time}")
 
-# start_time = time.perf_counter()
-# top_counties_alt = top_k_sort_all(county_totals, k)
-# stop_time = time.perf_counter()
-# print(f"top counties alt: {top_counties_alt}")
-# print(f"top counter alt time: {stop_time - start_time}")
+start_time = time.perf_counter()
+top_counties_alt = top_k_sort_all(county_totals, k)
+stop_time = time.perf_counter()
+print(f"top counties alt: {top_counties_alt}")
+print(f"top counter alt time: {stop_time - start_time}")
 
+
+"""
+Display the top counties and their states
+"""
+for top_county in top_counties:
+  name = top_county[0]
+  print(f"{name} county appears in state codes: {county_states[name]}")
 
 """Task 3
 
 Basic statistics by state
 """
-
-features = data['features']
 
 """Task 3, part one
 
@@ -401,4 +469,4 @@ def test_get_state_total_avg_area_county():
 test_get_state_total_avg_area_county()
 
 state_total_avg_area_county = get_state_total_avg_area_county(features)
-print(f"County areas for states: {state_total_avg_area_county}")
+# print(f"County areas for states: {state_total_avg_area_county}")
