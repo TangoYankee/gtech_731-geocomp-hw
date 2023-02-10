@@ -215,6 +215,8 @@ def test_get_state_counties_total():
   assert(get_state_counties_total(mock_features) == expected_totals)
 
 test_get_state_counties_total()
+state_counties_totals = get_state_counties_total(features)
+print(f"List of {len(state_counties_totals)} states' county totals: {state_counties_totals}")
 
 """Task 3, part two
 
