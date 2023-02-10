@@ -21,10 +21,8 @@ print(data['features'][1]['properties']['NAME'])
 Task 2
 Top three counties and their states
 """
+
 features = data['features']
-
-first_feature = features[1]
-
 county_states = dict()
 for feature in features:
   properties = feature['properties']
@@ -32,8 +30,6 @@ for feature in features:
   state_code = properties['STATE']
   county_states.setdefault(county_name, []).append(state_code)
 
-print(first_feature['properties'])
-print(county_states['Wade Hampton'])
 
 def get_county_totals(county_states):
   """Reformat the counties and state list objects into a tuple of counties and their totals
@@ -127,18 +123,18 @@ county_totals = get_county_totals(county_states)
 Findings: sorting the rankings list is generally faster when k is less than 25.
 Sorting the whole list of counties and taking the top is generally faster when k is more than 25.
 """
-k = 3 
-start_time = time.perf_counter()
-top_counties = top_k_sort_k(county_totals, k)
-stop_time = time.perf_counter()
-print(f"top counties: {top_counties}")
-print(f"top counter time: {stop_time - start_time}")
+# k = 3 
+# start_time = time.perf_counter()
+# top_counties = top_k_sort_k(county_totals, k)
+# stop_time = time.perf_counter()
+# print(f"top counties: {top_counties}")
+# print(f"top counter time: {stop_time - start_time}")
 
-start_time = time.perf_counter()
-top_counties_alt = top_k_sort_all(county_totals, k)
-stop_time = time.perf_counter()
-print(f"top counties alt: {top_counties_alt}")
-print(f"top counter alt time: {stop_time - start_time}")
+# start_time = time.perf_counter()
+# top_counties_alt = top_k_sort_all(county_totals, k)
+# stop_time = time.perf_counter()
+# print(f"top counties alt: {top_counties_alt}")
+# print(f"top counter alt time: {stop_time - start_time}")
 
 
 """Task 3
@@ -146,10 +142,79 @@ print(f"top counter alt time: {stop_time - start_time}")
 Basic statistics by state
 """
 
+features = data['features']
+first_features = features[100]
+print(first_features['properties'])
+
 """Task 3, part one
 
 The number of counties in each state
 """
+def get_state_counties_total(features):
+  """Find the total number of counties in each state
+
+  Arguments:
+  features list[str, dict] -- each county has a set of properties, state code is most relevant
+
+  Returns:
+  dict -- key is state code and value is the total number of counties 
+  """
+  
+  totals = {}
+  for feature in features:
+    properties = feature['properties']
+    state_code = properties['STATE']
+    totals[state_code] = totals.get(state_code, 0) + 1
+
+  return totals
+
+
+def test_get_state_counties_total():
+  mock_features = [{
+    'type': 'Feature',
+    "properties": {
+      'GEO_ID': '0500000US01087',
+      'STATE': '01',
+      'COUNTY': '087',
+      'NAME': 'Macon',
+      'LSAD': 'County',
+      'CENSUSAREA': 608.885
+    },
+    "geometry": None,
+  }, {
+    'type': 'Feature',
+    "properties": {
+      'GEO_ID': '0500000US02275',
+      'STATE': '02',
+      'COUNTY': '275',
+      'NAME': 'Wrangell',
+      'LSAD': 'Cty&Bor',
+      'CENSUSAREA': 2541.483
+    },
+    "geometry": None,
+  }, {
+    "type": "Feature",
+    "properties": {
+      'GEO_ID': '0500000US01087',
+      'STATE': '01',
+      'COUNTY': '087',
+      'NAME': 'Macon',
+      'LSAD': 'County',
+      'CENSUSAREA': 608.885
+    },
+    "geometry": None,
+  }] 
+
+  expected_totals = {
+    '01': 2,
+    '02': 1
+  }
+
+  obs = get_state_counties_total(mock_features)
+  print(f"obs: {obs}")
+  assert(get_state_counties_total(mock_features) == expected_totals)
+
+test_get_state_counties_total()
 
 """Task 3, part two
 
