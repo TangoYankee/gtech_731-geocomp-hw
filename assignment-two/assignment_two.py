@@ -1,6 +1,7 @@
 # Read from a local file
 import json
 import io
+import time
 
 """Task 1
 Open geojson file
@@ -117,3 +118,23 @@ def test_top_k_sort_all():
   assert(top_k_sort_all(mock_county_totals, 3) == expected_top_k)
 
 test_top_k_sort_all()
+
+county_totals = get_county_totals(county_states)
+"""
+Compare the two algorithims to determine which has better performance.
+
+Findings: sorting the rankings list is generally faster when k is less than 25.
+Sorting the whole list of counties and taking the top is generally faster when k is more than 25.
+"""
+k = 3 
+start_time = time.perf_counter()
+top_counties = top_k_sort_k(county_totals, k)
+stop_time = time.perf_counter()
+print(f"top counties: {top_counties}")
+print(f"top counter time: {stop_time - start_time}")
+
+start_time = time.perf_counter()
+top_counties_alt = top_k_sort_all(county_totals, k)
+stop_time = time.perf_counter()
+print(f"top counties alt: {top_counties_alt}")
+print(f"top counter alt time: {stop_time - start_time}")
