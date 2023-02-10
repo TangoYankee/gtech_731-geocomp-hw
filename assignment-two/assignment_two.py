@@ -121,7 +121,8 @@ test_top_k_sort_all()
 
 county_totals = get_county_totals(county_states)
 """
-Compare the two algorithims to determine which has better performance.
+1. Find the top counties.
+2. Compare the two algorithims to determine which has better performance.
 
 Findings: sorting the rankings list is generally faster when k is less than 25.
 Sorting the whole list of counties and taking the top is generally faster when k is more than 25.
@@ -138,3 +139,24 @@ top_counties_alt = top_k_sort_all(county_totals, k)
 stop_time = time.perf_counter()
 print(f"top counties alt: {top_counties_alt}")
 print(f"top counter alt time: {stop_time - start_time}")
+
+
+"""Task 3
+
+Basic statistics by state
+"""
+
+"""Task 3, part one
+
+The number of counties in each state
+"""
+
+"""Task 3, part two
+
+Name and size of the biggest and smallest county in each state, by area
+"""
+
+"""Task 3, part three
+
+The total and average area of counties in each state
+"""
