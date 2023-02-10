@@ -319,9 +319,86 @@ def test_get_state_county_min_max_area():
 
 test_get_state_county_min_max_area()
 state_county_min_max_area = get_state_county_min_max_area(features)
-print(f"min and max counties by area in each state: {state_county_min_max_area}")
+# print(f"min and max counties by area in each state: {state_county_min_max_area}")
 
 """Task 3, part three
 
 The total and average area of counties in each state
 """
+def get_state_total_avg_area_county(features):
+  state_total_avg_area_county = {}
+  for feature in features:
+    properties = feature["properties"]
+    state_code = properties['STATE']
+    county_area = properties['CENSUSAREA']
+
+    if state_code in state_total_avg_area_county:
+      state = state_total_avg_area_county[state_code]
+      state['county_total_area'] = state['county_total_area'] + county_area
+      state['county_count'] = state['county_count'] + 1
+      state['county_avg_area'] = state['county_total_area'] / state['county_count']
+    else:
+      state = {
+        "county_total_area": county_area,
+        "county_avg_area": county_area,
+        "county_count": 1
+      }
+      state_total_avg_area_county[state_code] = state
+
+  return state_total_avg_area_county
+
+def test_get_state_total_avg_area_county():
+  mock_features = [{
+    'type': 'Feature',
+    "properties": {
+      'GEO_ID': '0500000US01087',
+      'STATE': '01',
+      'COUNTY': '087',
+      'NAME': 'Macon',
+      'LSAD': 'County',
+      'CENSUSAREA': 608.885
+    },
+    "geometry": None,
+  }, {
+    'type': 'Feature',
+    "properties": {
+      'GEO_ID': '0500000US02275',
+      'STATE': '02',
+      'COUNTY': '275',
+      'NAME': 'Wrangell',
+      'LSAD': 'Cty&Bor',
+      'CENSUSAREA': 2541.483
+    },
+    "geometry": None,
+  }, {
+    'type': 'Feature',
+      'properties': {
+      'GEO_ID': '0500000US02270',
+      'STATE': '02',
+      'COUNTY': '270',
+      'NAME': 'Wade Hampton',
+      'LSAD': 'CA',
+      'CENSUSAREA': 17081.433
+    },
+    "geometry": None,
+  }]
+
+  expected = {
+    '01': {
+      "county_total_area": 608.885,
+      "county_avg_area": 608.885,
+      "county_count": 1
+    }, 
+    '02': {
+      "county_total_area": 19622.916,
+      "county_avg_area": 9811.458,
+      "county_count": 2
+    }
+  }
+
+  assert(get_state_total_avg_area_county(mock_features) == expected)
+
+test_get_state_total_avg_area_county()
+
+state_total_avg_area_county = get_state_total_avg_area_county(features)
+print(f"County areas for states: {state_total_avg_area_county}")
