@@ -7,7 +7,7 @@ import time
 Open geojson file
 """
 # Use "with ... as ..." to better handle exceptions
-# https://stackoverflow.com/questions/30996289/utf8-codec-cant-decode-byte-0xf3
+# address utf-8 error https://stackoverflow.com/questions/30996289/utf8-codec-cant-decode-byte-0xf3
 # Data Source https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_050_00_5m.json
 with io.open('assignment-two/data/gz_2010_us_050_00_5m.json', encoding='latin-1') as f:
   data = json.load(f)
@@ -25,6 +25,14 @@ Top three counties and their states
 features = data['features']
 
 def get_county_states(features):
+  """Format the counties to easily list their states
+
+  Arguments:
+  features list[dict] -- county data
+
+  Returns:
+  dict[str, list[str]] -- County name as the key and the list of state codes as the value
+  """
   county_states = dict()
   for feature in features:
     properties = feature['properties']
@@ -89,7 +97,6 @@ def test_get_county_states():
   }
 
   obs = get_county_states(mock_features)
-  print(f"obs {obs}")
   assert(obs == expected)
 
 test_get_county_states()
@@ -99,7 +106,7 @@ def get_county_totals(county_states):
   """Reformat the counties and state list objects into a tuple of counties and their totals
 
   Arguments:
-  county_states dict[str, list<str>] -- County name as the key and the list of state codes as the value
+  county_states dict[str, list[str]] -- County name as the key and the list of state codes as the value
 
   Returns:
   tuple[str, int] -- The counties and the total number of states that use them.
@@ -207,6 +214,7 @@ for top_county in top_counties:
   name = top_county[0]
   print(f"{name} county appears in state codes: {county_states[name]}")
 
+
 """Task 3
 
 Basic statistics by state
@@ -220,12 +228,11 @@ def get_state_counties_total(features):
   """Find the total number of counties in each state
 
   Arguments:
-  features list[str, dict] -- each county has a set of properties, state code is most relevant
+  features list[dict] -- each county has a set of properties, state code is most relevant
 
   Returns:
   dict -- key is state code and value is the total number of counties 
   """
-  
   totals = {}
   for feature in features:
     properties = feature['properties']
@@ -279,9 +286,8 @@ def test_get_state_counties_total():
   assert(get_state_counties_total(mock_features) == expected_totals)
 
 test_get_state_counties_total()
-
 state_counties_totals = get_state_counties_total(features)
-# print(f"List of {len(state_counties_totals)} states' county totals: {state_counties_totals}")
+print(f"List of {len(state_counties_totals)} states' county totals: {state_counties_totals}")
 
 
 """Task 3, part two
@@ -289,6 +295,14 @@ state_counties_totals = get_state_counties_total(features)
 Name and size of the biggest and smallest county in each state, by area
 """
 def get_state_county_min_max_area(features):
+  """Find the name and size of the biggest and smallest county in each state
+
+  Arguments:
+  features list[dict] -- county object with type, properties, and geometry
+
+  Returns:
+  dict[str, dict] -- county data for largest and smallest counties
+  """
   state_county_min_max_area = {}
 
   for feature in features:
@@ -303,7 +317,6 @@ def get_state_county_min_max_area(features):
     }
 
     if state_code in state_county_min_max_area:
-      # Compare the min and max counties
       state = state_county_min_max_area[state_code]
 
       largest_county_area = state['largest_county']['area']
@@ -314,7 +327,6 @@ def get_state_county_min_max_area(features):
       if county_area < smallest_county_area:
         state['smallest_county'] = county
     else:
-      # Initialize the counties with the current values
       state = {
         "largest_county": county,
         "smallest_county": county
@@ -387,13 +399,21 @@ def test_get_state_county_min_max_area():
 
 test_get_state_county_min_max_area()
 state_county_min_max_area = get_state_county_min_max_area(features)
-# print(f"min and max counties by area in each state: {state_county_min_max_area}")
+print(f"min and max counties by area in each state: {state_county_min_max_area}")
 
 """Task 3, part three
 
 The total and average area of counties in each state
 """
 def get_state_total_avg_area_county(features):
+  """ The total and average area of counties in each state
+
+  Arguments:
+  features list[dict] -- county data
+
+  Returns:
+  dict[str, dict] -- total and avg area for counties in the state
+  """
   state_total_avg_area_county = {}
   for feature in features:
     properties = feature["properties"]
@@ -467,6 +487,5 @@ def test_get_state_total_avg_area_county():
   assert(get_state_total_avg_area_county(mock_features) == expected)
 
 test_get_state_total_avg_area_county()
-
 state_total_avg_area_county = get_state_total_avg_area_county(features)
-# print(f"County areas for states: {state_total_avg_area_county}")
+print(f"County areas for states: {state_total_avg_area_county}")
