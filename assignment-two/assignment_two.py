@@ -143,8 +143,6 @@ Basic statistics by state
 """
 
 features = data['features']
-first_features = features[100]
-print(first_features['properties'])
 
 """Task 3, part one
 
@@ -193,7 +191,74 @@ def test_get_state_counties_total():
     },
     "geometry": None,
   }, {
-    "type": "Feature",
+    'type': 'Feature',
+      'properties': {
+      'GEO_ID': '0500000US02270',
+      'STATE': '02',
+      'COUNTY': '270',
+      'NAME': 'Wade Hampton',
+      'LSAD': 'CA',
+      'CENSUSAREA': 17081.433
+    },
+    "geometry": None,
+  }] 
+
+  expected_totals = {
+    '01': 1,
+    '02': 2
+  }
+
+  assert(get_state_counties_total(mock_features) == expected_totals)
+
+test_get_state_counties_total()
+
+state_counties_totals = get_state_counties_total(features)
+# print(f"List of {len(state_counties_totals)} states' county totals: {state_counties_totals}")
+
+
+"""Task 3, part two
+
+Name and size of the biggest and smallest county in each state, by area
+"""
+def get_state_county_min_max_area(features):
+  state_county_min_max_area = {}
+
+  for feature in features:
+    properties = feature['properties']
+    state_code = properties['STATE']
+    county_name = properties['NAME']
+    county_area = properties['CENSUSAREA']
+
+    county = {
+      "name": county_name,
+      "area": county_area
+    }
+
+    if state_code in state_county_min_max_area:
+      # Compare the min and max counties
+      state = state_county_min_max_area[state_code]
+
+      largest_county_area = state['largest_county']['area']
+      if county_area > largest_county_area:
+        state['largest_county'] = county
+
+      smallest_county_area = state['smallest_county']['area']
+      if county_area < smallest_county_area:
+        state['smallest_county'] = county
+    else:
+      # Initialize the counties with the current values
+      state = {
+        "largest_county": county,
+        "smallest_county": county
+      }
+
+      state_county_min_max_area[state_code] = state
+
+  return state_county_min_max_area
+
+def test_get_state_county_min_max_area():
+  mock_features = [{
+    'type': 'Feature',
     "properties": {
       'GEO_ID': '0500000US01087',
       'STATE': '01',
@@ -203,25 +268,58 @@ def test_get_state_counties_total():
       'CENSUSAREA': 608.885
     },
     "geometry": None,
-  }] 
+  }, {
+    'type': 'Feature',
+    "properties": {
+      'GEO_ID': '0500000US02275',
+      'STATE': '02',
+      'COUNTY': '275',
+      'NAME': 'Wrangell',
+      'LSAD': 'Cty&Bor',
+      'CENSUSAREA': 2541.483
+    },
+    "geometry": None,
+  }, {
+    'type': 'Feature',
+      'properties': {
+      'GEO_ID': '0500000US02270',
+      'STATE': '02',
+      'COUNTY': '270',
+      'NAME': 'Wade Hampton',
+      'LSAD': 'CA',
+      'CENSUSAREA': 17081.433
+    },
+    "geometry": None,
+  }]
 
-  expected_totals = {
-    '01': 2,
-    '02': 1
+  expected = {
+    '01': {
+      'largest_county': {
+        'name': "Macon",
+        "area": 608.885
+      },
+      "smallest_county": {
+        'name': "Macon",
+        "area": 608.885
+      }
+    },
+    '02': {
+      "largest_county": {
+        "name": "Wade Hampton",
+        "area": 17081.433
+      },
+      "smallest_county": {
+        "name": "Wrangell",
+        "area": 2541.483
+      }
+    }
   }
 
-  obs = get_state_counties_total(mock_features)
-  print(f"obs: {obs}")
-  assert(get_state_counties_total(mock_features) == expected_totals)
+  assert(get_state_county_min_max_area(mock_features) == expected)
 
-test_get_state_counties_total()
-state_counties_totals = get_state_counties_total(features)
-print(f"List of {len(state_counties_totals)} states' county totals: {state_counties_totals}")
-
-"""Task 3, part two
-
-Name and size of the biggest and smallest county in each state, by area
-"""
+test_get_state_county_min_max_area()
+state_county_min_max_area = get_state_county_min_max_area(features)
+print(f"min and max counties by area in each state: {state_county_min_max_area}")
 
 """Task 3, part three
 
