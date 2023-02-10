@@ -5,6 +5,7 @@ import time
 
 """Task 1
 Open geojson file
+Make a list of unique county names
 """
 # Use "with ... as ..." to better handle exceptions
 # address utf-8 error https://stackoverflow.com/questions/30996289/utf8-codec-cant-decode-byte-0xf3
@@ -16,14 +17,22 @@ print('Number of Counties in US: {}'.format(len(data['features'])))
 
 print(data['features'][1]['properties']['NAME'])
 
+features = data['features']
+unique_county_names = set()
+for feature in features:
+  properties = feature['properties']
+  county_name = properties["NAME"]
+  unique_county_names.add(county_name)
+
+unique_county_names = list(unique_county_names)
+print(f"unique {type(unique_county_names)} of county names: {unique_county_names}")
+
+
 
 """
 Task 2
 Top three counties and their states
 """
-
-features = data['features']
-
 def get_county_states(features):
   """Format the counties to easily list their states
 
