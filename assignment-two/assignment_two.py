@@ -38,10 +38,10 @@ def get_county_totals(county_states):
   """Reformat the counties and state list objects into a tuple of counties and their totals
 
   Arguments:
-  county_states dict[str, list<str>]: County name as the key and the list of state codes as the value
+  county_states dict[str, list<str>] -- County name as the key and the list of state codes as the value
 
   Returns:
-  tuple[str, int]: The counties and the total number of states that use them.
+  tuple[str, int] -- The counties and the total number of states that use them.
   """
   county_totals = [(None, None)] * len(county_states) 
   i = 0
@@ -68,11 +68,11 @@ def top_k_sort_k(totals, k):
   """Find the top k values in a tuple of objects and their counts.
   
   Arguments:
-  totals -- A tuple with a name of type string in the first position and a total of type integer in the second position
-  k -- the number of items to rank
+  totals tuple[str, int]-- Item Name and total 
+  k int -- the number of items to rank
 
   Returns:
-  a tuple with the top k items and their counts
+  tuple[str, int] -- Top k items and their counts
   
   Note:
   This function iterates through the list of items, only sorting the list of rankings
@@ -94,3 +94,26 @@ def test_top_k_sort_k():
   assert(top_k_sort_k(mock_county_totals, 3) == expected_top_k)
 
 test_top_k_sort_k()
+
+def top_k_sort_all(totals, k):
+  """Find the top k values in a tuple of objects and their counts.
+    
+    Arguments:
+    totals tuple[str, int]-- Item Name and total 
+    k int -- the number of items to rank
+
+    Returns:
+    tuple[str, int] -- Top k items and their counts
+    
+    Note:
+    This function sorts the whole list and then takes the top k results
+  """
+  totals.sort(key = lambda a: a[1])
+  return totals[-k:]
+
+def test_top_k_sort_all():
+  mock_county_totals = [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4), ("F", 4)]
+  expected_top_k = [("D", 3), ("E", 4), ("F", 4)]
+  assert(top_k_sort_all(mock_county_totals, 3) == expected_top_k)
+
+test_top_k_sort_all()
