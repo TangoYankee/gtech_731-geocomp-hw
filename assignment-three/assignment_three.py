@@ -120,14 +120,7 @@ def get_county_totals(county_states):
   Returns:
   tuple[str, int] -- The counties and the total number of states that use them.
   """
-  county_totals = [(None, None)] * len(county_states) 
-  i = 0
-  for county, states in county_states.items():
-    county_total = (county, len(states))
-    county_totals[i] = county_total
-    i+=1
-
-  return county_totals
+  return [(county, len(states)) for county, states in county_states.items()]
 
 
 def test_get_county_totals():
