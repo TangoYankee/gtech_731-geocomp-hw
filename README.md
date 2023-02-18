@@ -4,3 +4,4 @@ assignments for GTECH 73100
 Homework pages
 - [Assignment one](https://tangoyankee.github.io/gtech_731-geocomp-hw/assignment-one/assignment_one.html)
 - [Assignment two](https://tangoyankee.github.io/gtech_731-geocomp-hw/assignment-two/assignment_two.html)
+- [Assignment three](https://tangoyankee.github.io/gtech_731-geocomp-hw/assignment-three/assignment_three.html)
