@@ -1,4 +1,4 @@
-from geom import Square, Circle;
+from geom import Square, Circle, Triangle;
 from random import seed;
 
 """Use seed to make random functions always return predicted values"""
@@ -30,3 +30,10 @@ def test_create_circles():
     assert(two.makeString() == exp_two_str)
 
 test_create_circles()
+
+def test_create_triangle():
+    triangle = Triangle(3,6)
+    exp_str = "Name: Tamica, Color: PURPLE, Area: 9.0"
+    assert(triangle.makeString() == exp_str)
+
+test_create_triangle()
