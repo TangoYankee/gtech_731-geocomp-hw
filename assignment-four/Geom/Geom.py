@@ -1,4 +1,3 @@
-import math as mth
 import random
 
 class Geom():
@@ -19,31 +18,3 @@ class Geom():
   def makeString(self):
     return f"Name: {self.name}, Color: {self.color}, Area: {self.area()}"
 
-class Circle(Geom):
-  
-  def __init__ (self,radius):
-    self.radius = radius
-    super().__init__()
-
-  # area method  
-  def area(self):
-     return mth.pi * self.radius **2
-
-class Square(Geom):
-  
-  def __init__ (self,side):
-    self.side = side
-    super().__init__()
-  # area method  
-  def area(self):
-     return self.side **2
-
-class Triangle(Geom):
-  
-  def __init__(self, base, height):
-    self.base = base
-    self.height = height
-    super().__init__()
-
-  def area(self):
-    return (self.base * self.height) / 2

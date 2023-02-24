@@ -1,4 +1,4 @@
-from geom import Square, Circle, Triangle;
+from Geom import Square, Circle, Triangle;
 from random import seed;
 
 """Use seed to make random functions always return predicted values"""
