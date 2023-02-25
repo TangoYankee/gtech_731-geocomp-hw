@@ -1,9 +1,9 @@
+from .Geom import Geom
 import math as mth
-from Geom import Geom
 
 class Circle(Geom):
   
-  def __init__ (self,radius):
+  def __init__ (self, radius):
     self.radius = radius
     super().__init__()
 

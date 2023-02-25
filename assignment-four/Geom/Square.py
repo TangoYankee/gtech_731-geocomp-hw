@@ -1,4 +1,4 @@
-from Geom import Geom
+from .Geom import Geom
 
 class Square(Geom):
   
