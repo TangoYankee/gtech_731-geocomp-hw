@@ -1,3 +1,3 @@
-from Circle import Circle
-from Square import Square
-from Triangle import Triangle
+from .Circle import Circle
+from .Square import Square
+from .Triangle import Triangle
