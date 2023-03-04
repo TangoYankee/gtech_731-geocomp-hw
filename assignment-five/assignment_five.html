@@ -14610,6 +14610,22 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/bois-ages-tract.csv&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Geography&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -14619,20 +14635,19 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># https://plotly.com/python/choropleth-maps/</span>
-<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data/boi_select_ages_tract_borders.geojson&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-  <span class="n">tracts</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;data/boi_select_ages_tract_borders.geojson&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">tracts</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/bois-ages-tract.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Geography&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
-
-<span class="n">pop_over_65_map</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth</span><span class="p">(</span><span class="n">df</span><span class="p">,</span>
-                    <span class="n">geojson</span><span class="o">=</span><span class="n">tracts</span><span class="p">,</span>
-                    <span class="n">featureidkey</span><span class="o">=</span><span class="s2">&quot;properties.Geography&quot;</span><span class="p">,</span>
-                    <span class="n">locations</span><span class="o">=</span><span class="s1">&#39;Geography&#39;</span><span class="p">,</span>
-                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tot_pop_over_65_est&quot;</span><span class="p">,</span>
-                    <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s2">&quot;viridis_r&quot;</span><span class="p">,</span>
-                    <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tot_pop_over_65_est&#39;</span><span class="p">:</span> <span class="s1">&#39;Population over 65&#39;</span><span class="p">},</span>
-                    <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;usa&#39;</span>
-                    <span class="p">)</span>
+<span class="n">pop_over_65_map</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">geojson</span><span class="o">=</span><span class="n">tracts</span><span class="p">,</span>
+    <span class="n">featureidkey</span><span class="o">=</span><span class="s2">&quot;properties.Geography&quot;</span><span class="p">,</span>
+    <span class="n">locations</span><span class="o">=</span><span class="s2">&quot;Geography&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tot_pop_over_65_est&quot;</span><span class="p">,</span>
+    <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s2">&quot;viridis_r&quot;</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tot_pop_over_65_est&quot;</span><span class="p">:</span> <span class="s2">&quot;Population over 65&quot;</span><span class="p">},</span>
+    <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;usa&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">pop_over_65_map</span><span class="o">.</span><span class="n">update_geos</span><span class="p">(</span><span class="n">fitbounds</span><span class="o">=</span><span class="s2">&quot;geojson&quot;</span><span class="p">)</span>
 <span class="n">pop_over_65_map</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -14670,12 +14685,87 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pio</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s1">&#39;choropleth.png&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pio</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="n">pop_over_65_map</span><span class="p">,</span> <span class="s2">&quot;choropleth.png&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pio</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="n">pop_over_65_map</span><span class="p">,</span> <span class="s2">&quot;choropleth.html&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Density-Heatmaps">Density Heatmaps<a class="anchor-link" href="#Density-Heatmaps">&#182;</a></h2><p><a href="https://plotly.com/python/2D-Histogram/">2D Histogram docs</a></p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pop_over_65_under_5_hist</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">density_heatmap</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;tot_pop_under_5_est&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;tot_pop_over_65_est&quot;</span><span class="p">,</span>
+    <span class="n">marginal_x</span><span class="o">=</span><span class="s2">&quot;histogram&quot;</span><span class="p">,</span>
+    <span class="n">marginal_y</span><span class="o">=</span><span class="s2">&quot;histogram&quot;</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">tot_pop_under_5_est</span><span class="o">=</span><span class="s2">&quot;Population under 5&quot;</span><span class="p">,</span>
+        <span class="n">tot_pop_over_65_est</span><span class="o">=</span><span class="s2">&quot;Population over 65&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pop_over_65_under_5_hist</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+
+</div>
+
+</div>
+
 </div>
 
 </div>
