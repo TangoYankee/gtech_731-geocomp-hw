@@ -36,6 +36,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
+.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14464,10 +14465,6 @@ a.anchor-link {
   display: none;
 }
 
-.highlight  {
-  margin: 0.4em;
-}
-
 /* Input area styling */
 .jp-InputArea {
   overflow: hidden;
@@ -14477,9 +14474,26 @@ a.anchor-link {
   overflow: hidden;
 }
 
-.CodeMirror pre {
+.CodeMirror.cm-s-jupyter .highlight pre {
+/* weird, but --jp-code-padding defined to be 5px but 4px horizontal padding is hardcoded for pre.CodeMirror-line */
+  padding: var(--jp-code-padding) 4px;
   margin: 0;
-  padding: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+
+}
+
+.jp-OutputArea-output pre {
+  line-height: inherit;
+  font-family: inherit;
+}
+
+.jp-RenderedText pre {
+  color: var(--jp-content-font-color1);
+  font-size: var(--jp-code-font-size);
 }
 
 /* Using table instead of flexbox so that we can use break-inside property */
@@ -14525,6 +14539,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   display: none;
 }
 
+@page {
+    margin: 0.5in; /* Margin for each printed piece of paper */
+}
+
 @media print {
   .jp-Cell-inputWrapper,
   .jp-Cell-outputWrapper {
@@ -14559,12 +14577,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14590,7 +14608,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Assignment-Three">Assignment Three<a class="anchor-link" href="#Assignment-Three">&#182;</a></h1><p>Adjustments to assignment two</p>
+<h1 id="Assignment-Three"><a href="https://github.com/TangoYankee/gtech_731-geocomp-hw/tree/main/assignment-three">Assignment Three</a><a class="anchor-link" href="#Assignment-Three">&#182;</a></h1><p>Adjustments to assignment two</p>
 
 </div>
 </div>
@@ -14692,7 +14710,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_county_states</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Format the counties to easily list their states</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Format the counties to easily list their states</span>
 
 <span class="sd">  Arguments:</span>
 <span class="sd">  features list[dict] -- county data</span>
@@ -14771,7 +14789,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">county_states</span> <span class="o">=</span> <span class="n">get_county_states</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">get_county_totals</span><span class="p">(</span><span class="n">county_states</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reformat the counties and state list objects into a tuple of counties and their totals</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Reformat the counties and state list objects into a tuple of counties and their totals</span>
 
 <span class="sd">  Arguments:</span>
 <span class="sd">  county_states dict[str, list[str]] -- County name as the key and the list of state codes as the value</span>
@@ -14796,7 +14814,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <span class="c1"># Modification: create simple bubble sort </span>
 <span class="k">def</span> <span class="nf">simple_bubble</span><span class="p">(</span><span class="n">totals</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Sorting based on the assumption that only the first item needs to be &#39;bubbled up&#39; to its correct space</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Sorting based on the assumption that only the first item needs to be &#39;bubbled up&#39; to its correct space</span>
 
 <span class="sd">  Arguments:</span>
 <span class="sd">  totals list[tuple[str, int]] -- Item Name and total </span>
@@ -14826,7 +14844,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <span class="c1"># Modification: create function that sorts with a simple bubble sort</span>
 <span class="k">def</span> <span class="nf">top_k_sort_k_bubble</span><span class="p">(</span><span class="n">totals</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Find the top k values in a tuple of objects and their counts.</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Find the top k values in a tuple of objects and their counts.</span>
 <span class="sd">  </span>
 <span class="sd">  Arguments:</span>
 <span class="sd">  totals tuple[str, int]-- Item Name and total </span>
@@ -14859,7 +14877,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">test_top_k_sort_k_simple</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">top_k_sort_k</span><span class="p">(</span><span class="n">totals</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Find the top k values in a tuple of objects and their counts.</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Find the top k values in a tuple of objects and their counts.</span>
 <span class="sd">  </span>
 <span class="sd">  Arguments:</span>
 <span class="sd">  totals tuple[str, int]-- Item Name and total </span>
@@ -14902,13 +14920,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">top_counties</span> <span class="o">=</span> <span class="n">top_k_sort_k</span><span class="p">(</span><span class="n">county_totals</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 <span class="n">stop_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;top counties built in: </span><span class="si">{</span><span class="n">top_counties</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;top counter built in time: </span><span class="si">{</span><span class="n">stop_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;top counter built in time: </span><span class="si">{</span><span class="n">stop_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
 <span class="n">top_counties_bubble</span> <span class="o">=</span> <span class="n">top_k_sort_k_bubble</span><span class="p">(</span><span class="n">county_totals</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 <span class="n">stop_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;top counties bubble: </span><span class="si">{</span><span class="n">top_counties_bubble</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;top counter bubble time: </span><span class="si">{</span><span class="n">stop_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;top counter bubble time: </span><span class="si">{</span><span class="n">stop_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14922,9 +14940,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
-
 <div class="jp-OutputArea-child">
-
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
