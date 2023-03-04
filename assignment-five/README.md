@@ -1,5 +1,5 @@
 # Install instructions  
-These must be run in the `assignment five` folder
+These must be run in a bash terminal, within the `assignment five` directory
 1. Create a virtual environment  
 ```python3 -m venv pyvis```
 2. Enter the virtual environment
