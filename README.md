@@ -1,4 +1,4 @@
-# gtech_731-geocomp-hw
+# [gtech_731-geocomp-hw](https://github.com/tangoyankee/gtech_731-geocomp-hw)
 assignments for GTECH 73100
 
 Homework pages
