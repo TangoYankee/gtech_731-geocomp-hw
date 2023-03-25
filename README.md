@@ -8,3 +8,5 @@ Homework pages
 - [Assignment four](https://tangoyankee.github.io/gtech_731-geocomp-hw/assignment-four/assignment_four.html)
 - [Assignment five](https://tangoyankee.github.io/gtech_731-geocomp-hw/assignment-five/assignment_five.html)
 - [Assignment six](https://tangoyankee.github.io/gtech_731-geocomp-hw/assignment-six/assignment_six.html)
+- Assignment seven depends on ArcGIS and is not included here
+- [Assignment eight](https://tangoyankee.github.io/gtech_731-geocomp-hw/assignment-eight/assignment_eight.html)
